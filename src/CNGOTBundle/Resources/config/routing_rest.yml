@@ -1,0 +1,4 @@
+users : 
+  type: rest
+  resource:     "CNGOTBundle:CNGOTRest"
+  name_prefix:  api_

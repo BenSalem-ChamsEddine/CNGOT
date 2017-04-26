@@ -1,0 +1,44 @@
+{% block videoContent %}
+
+    {% if videos|length > 0 %}
+
+        <div class="dark-wrapper">
+            <div class="container inner">
+                <div class="section-title-area">
+                    <h2 class="section-title">Nos Videos</h2>
+                </div>
+                <div class="divide10"></div>
+                <div class="carousel-wrapper">
+                    <div class="carousel carousel-boxed blog">
+
+
+
+
+
+                        {%for i in videos | reverse %}
+                            <div class="item post">
+                                <figure class="main"><video src="{{ "/../../../upload/uploads/documents/" ~ i.path }}" controls="controls"/></figure>
+                                <div class="box text-center">
+                                    <h4 class="post-title"><a href="#">{{i.titre}}</a></h4>
+                                    <div class="meta"><span class="date"><i class="fa fa-clock-o"></i>&nbsp;{{i.date|date('Y-m-d')}}</span></div>
+                                    <p><i class="icon-chat-1"></i>&nbsp;&nbsp;{{ i.description }}</p>
+                                </div>
+                                <!-- /.box --> 
+
+                            </div>
+                            <!-- /.post -->
+                        {%endfor%}
+
+
+
+
+                    </div>
+                    <!--/.carousel --> 
+                </div>
+                <!--/.carousel-wrapper --> 
+            </div>
+            <!--/.container --> 
+
+        </div> 
+    {% endif %}
+{% endblock %}

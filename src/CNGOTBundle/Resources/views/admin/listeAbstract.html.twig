@@ -1,0 +1,152 @@
+{% extends "CNGOTBundle:admin:layout.html.twig" %}
+
+{% block content %}
+    <div class="page-content">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-globe"></i> Les abstracts en attente  </div>
+                        <div class="tools"> </div>
+                    </div>
+                    <div class="portlet-body">
+                        <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="sample_4">
+                            <thead>
+                                <tr>
+                                    <th class="all">Nom</th>
+                                    <th class="min-phone-l">Prenom</th>
+                                    <th class="min-tablet">Email</th>
+                                    <th class="min-tablet">Niveau</th>
+                                    <th class="min-tablet">Secteur</th>
+                                    <th class="min-tablet">Service</th>
+                                    <th class="min-tablet">Categorie</th>
+                                    <th class="min-tablet">Auteur</th>
+                                    <th class="min-tablet">Auteur 2</th>
+                                    <th class="min-tablet">Auteur 3</th>
+                                    <th class="none"><strong>Titre:</strong></br></th>
+                                    <th class="none"><strong>Introduction:</strong></br></th>
+                                    <th class="none"><strong>Description:</strong></br></th>
+                                    <th class="none"><strong>Resultat:</strong></br></th>
+                                    <th class="none"><strong>Conclusion:</strong></br></th>
+                                    <th class="none"></th>
+                                    <th class="none"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for abst in abstracts %}
+                                    {% if abst.status == 0 %}    
+                                    
+                                    <tr>
+                                        <td>{{abst.user.nom}}</td>
+                                        <td>{{abst.user.prenom}}</td>
+                                        <td>{{abst.user.email}}</td>
+                                        <td>{{abst.user.niveau}}</td>
+                                        <td>{{abst.user.secteur}}</td>
+                                        <td>{{abst.user.service}}</td>
+                                        <td>{{abst.categorie}}</td>
+                                        <td>{{abst.auteur1}}</td>
+                                        <td>{{abst.auteur2}}</td>
+                                        <td>{{abst.auteur3}}</td>
+                                        <td>{{abst.titre}}</td>
+                                        <td>{{abst.introduction}}</td>
+                                        <td>{{abst.materiel}}</td>
+                                        <td>{{abst.resultats}}</td>
+                                        <td>{{abst.conclusions}}</td>
+                                        <td>
+                                        
+                                        
+                                        {% if abst.path != null %}
+                                                        <figure class="main"><video width="300px" height="300px" src="{{"/../../../upload/abstractVideo/documents/" ~ abst.path }}" controls="controls"/></figure>
+                                                    {% endif %}
+
+                                        
+                                        
+                                        </td>
+                                        <td><HR><a class="btn btn-sm green btn-outline filter-submit margin-bottom" href="{{ path('accepter_abstract',{'id' : abst.id}) }}">accepter</a> / <a class="btn btn-sm red btn-outline filter-cancel" href="{{ path('rejeter_abstract',{'id' : abst.id}) }}">rejeter</a><HR>
+                                        
+                                        <a href="{{ path('telecharger_abstract',{'id' : abst.id}) }}" class="buttonDownload">Telecharger en PDF</a>
+                                        
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-globe"></i> Les abstracts acceptés</div>
+                    </div>
+                    <div class="portlet-body">
+                        <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="sample_2" >
+                            <thead>
+                                <tr>
+                                    <th class="all">Nom</th>
+                                    <th class="min-phone-l">Prenom</th>
+                                    <th class="min-tablet">Titre</th>
+                                    <th class="none">Introduction</th>
+                                    <th class="none">Description</th>
+                                    <th class="none">Resultat</th>
+                                    <th class="desktop">Conclusion</th>
+                                    <th class="none"></th>
+                                    <th class="none"></th>
+                                    <th class="none"></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for abst in abstracts %}
+                                    {% if abst.status == 1 %}    
+                                    
+                                    <tr>
+                                        <td>{{abst.user.nom}}</td>
+                                        <td>{{abst.user.prenom}}</td>
+                                        <td>{{abst.titre}}</td>
+                                        <td>{{abst.introduction}}</td>
+                                        <td>{{abst.materiel}}</td>
+                                        <td>{{abst.resultats}}</td>
+                                        <td>{{abst.conclusions}}</td>
+                                        <td>
+                                        
+                                        {% if abst.path != null %}
+                                                        <figure class="main"><video width="300px" height="300px" src="{{"/../../../upload/abstractVideo/documents/" ~ abst.path }}" controls="controls"/></figure>
+                                                    {% endif %}
+
+                                        
+                                        </td>
+                                        <td>
+                                        	 <a href="{{ path('telecharger_abstract',{'id' : abst.id}) }}" class="buttonDownload">Telecharger en PDF</a>
+                                        </td>
+                                        <td>
+                                        	 <a href="{{ path('telecharger_abstract_poster',{'id' : abst.id}) }}" class="buttonDownload">Telecharger le e-poster</a>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        
+
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: prati2016
+    database_user: prati2016
+    database_password: prati2016
+    mailer_transport: gmail
+    mailer_host: smtp.gmail.com
+    mailer_user: cngot2016@gmail.com
+    mailer_password: CNGOT2016
+    secret: 94943f229e9a96bd3709bc69cdeb643ff85df9f2

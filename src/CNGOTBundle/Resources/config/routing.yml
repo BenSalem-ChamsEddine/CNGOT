@@ -1,0 +1,120 @@
+cngot_homepage:
+    path:     /
+    defaults: { _controller: CNGOTBundle:Default:index }
+admin_home:
+    path:     /admin/
+    defaults: { _controller: CNGOTBundle:Default:adminHome }
+user_home:
+    path:     /user/
+    defaults: { _controller: CNGOTBundle:Default:userHome }
+
+Erreur:
+    path: /erreur
+    defaults: { _controller: CNGOTBundle:Default:erreur }    
+    
+mobile_app:
+    path:     /mobile
+    defaults: { _controller: CNGOTBundle:Default:mobile }    
+    
+home_video:
+    path:
+        /admin/video/
+    defaults:
+        _controller: CNGOTBundle:Video:index
+
+add_video:
+    path:     /admin/video/add
+    defaults: { _controller: CNGOTBundle:Video:add }
+    
+view_single_video:
+    path:
+        /video/view/{id}
+    defaults:
+        _controller: CNGOTBundle:Video:view
+    requirements:
+        id: \d+
+        
+delete_video:
+    path:
+        /admin/video/delete/{id}
+    defaults:
+        _controller: CNGOTBundle:Video:delete
+    requirements:
+        id: \d+
+        
+affichage_video:
+    path:
+        /video/listVideo
+    defaults:
+        _controller: CNGOTBundle:Video:liste
+
+edit_video:
+    path:
+        /video/edit/{id}
+    defaults:
+        _controller: CNGOTBundle:Video:edit
+    requirements:
+        id: \d+
+        
+
+        
+        
+        
+admin_users:
+    path: /admin/users
+    defaults: { _controller: CNGOTBundle:Admin:getAllUsers }
+
+admin_abstract:
+    path: /admin/abstracts
+    defaults: { _controller: CNGOTBundle:Admin:getAllAbstract }
+    
+accepter_abstract:
+    path: /admin/abstracts/accept/{id}
+    defaults: { _controller: CNGOTBundle:Admin:accepterAbstract }
+    
+rejeter_abstract:
+    path: /admin/abstracts/reject/{id}
+    defaults: { _controller: CNGOTBundle:Admin:rejectAbstract } 
+payement_effectue:
+    path: /admin/payement/{id}
+    defaults: { _controller: CNGOTBundle:Admin:payement } 
+    
+ 
+
+download_ticket:
+    path: /user/ticket/{salt}
+    defaults: { _controller: CNGOTBundle:User:index }
+    
+atelier_ticket:
+    path: /admin/ticket/{code}/{titre}
+    defaults: { _controller: CNGOTBundle:Admin:telecharger }
+
+
+telecharger_abstract:
+    path: /admin/abst/{id}
+    defaults: { _controller: CNGOTBundle:Admin:telechargerAbstract }
+
+telecharger_abstract2:
+    path: /abst/{id}
+    defaults: { _controller: CNGOTBundle:Default:telechargerAbstract }
+    
+add_user_video:
+    path: /user/addAbstract
+    defaults: { _controller: CNGOTBundle:AbstractVideo:add }
+    
+list_abstract_user:
+    path: /user/listabst/{id}
+    defaults: { _controller: CNGOTBundle:User:listeAbstract }
+    
+
+telecharger_abstract_poster:
+    path: /abstPos/{id}
+    defaults: { _controller: CNGOTBundle:Admin:telechargerAbstractPoster }
+    
+telecharger_certif_atelier:
+    path: /certifA/{idUser}/{idAtelier}
+    defaults: { _controller: CNGOTBundle:Default:telechargerAtelierCertif }
+    
+telecharger_certif_masterclass:
+    path: /certifM/{idUser}/{idMaster}
+    defaults: { _controller: CNGOTBundle:Default:telechargerMasterCertif }

@@ -1,0 +1,457 @@
+{% extends "CNGOTBundle:admin:layout.html.twig" %}
+
+{% block content %}
+
+    <style>
+        .buttonDownload {
+            display: inline-block;
+            position: relative;
+            padding: 10px 25px;
+
+            background-color: #4CC713;
+            color: white;
+
+            font-family: sans-serif;
+            text-decoration: none;
+            font-size: 0.9em;
+            text-align: center;
+            text-indent: 15px;
+        }
+
+        .buttonDownload:hover {
+            background-color: #333;
+            color: white;
+        }
+
+        .buttonDownload:before, .buttonDownload:after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            left: 15px;
+            top: 52%;
+        }
+
+        /* Download box shape  */
+        .buttonDownload:before {
+            width: 10px;
+            height: 2px;
+            border-style: solid;
+            border-width: 0 2px 2px;
+        }
+
+        /* Download arrow shape */
+        .buttonDownload:after {
+            width: 0;
+            height: 0;
+            margin-left: 3px;
+            margin-top: -7px;
+
+            border-style: solid;
+            border-width: 4px 4px 0 4px;
+            border-color: transparent;
+            border-top-color: inherit;
+
+            animation: downloadArrow 2s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .buttonDownload:hover:before {
+            border-color: #4CC713;
+        }
+
+        .buttonDownload:hover:after {
+            border-top-color: #4CC713;
+            animation-play-state: running;
+        }
+
+        /* keyframes for the download icon anim */
+        @keyframes downloadArrow {
+            /* 0% and 0.001% keyframes used as a hackish way of having the button frozen on a nice looking frame by default */
+            0% {
+                margin-top: -7px;
+                opacity: 1;
+            }
+
+            0.001% {
+                margin-top: -15px;
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                margin-top: 0;
+                opacity: 0;
+            }
+        }
+
+
+    </style>
+
+    <div class="page-content">
+        <!-- BEGIN PAGE BASE CONTENT -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Begin: life time stats -->
+                <div class="portlet light portlet-fit portlet-datatable bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-green"></i>
+                            <span class="caption-subject font-green sbold uppercase">Liste des utilisateur</span>
+                        </div>
+                        <div class="actions">
+                            <div class="btn-group">
+                                <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+                                    <span class="hidden-xs"> Options </span>
+                                </a>
+                                <ul class="dropdown-menu pull-right" id="sample_3_tools">
+                                    <li>
+                                        <a href="javascript:;" data-action="0" class="tool-action">
+                                            <i class="icon-printer"></i> Imprimer</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="1" class="tool-action">
+                                            <i class="icon-check"></i> Copier</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="2" class="tool-action">
+                                            <i class="icon-doc"></i> PDF</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="3" class="tool-action">
+                                            <i class="icon-paper-clip"></i> Excel</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="4" class="tool-action">
+                                            <i class="icon-cloud-upload"></i> CSV</a>
+                                    </li>
+                                    <li class="divider"> </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="5" class="tool-action">
+                                            <i class="icon-refresh"></i> Rafraîchir</a>
+                                    </li>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-container">
+                            <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                <thead>
+                                    <tr>
+                                        <th class="all"> Nom </th>
+                                        <th class="min-phone-l"> Prenom </th>
+                                        <th class="min-phone-l"> Email </th>
+                                        <th class="min-phone-l"> Telephone </th>
+                                        <th class="min-phone-l"> Niveau </th>
+                                        <th class="min-phone-l"> Specialite </th>
+                                        <th class="min-phone-l"> Secteur </th>
+                                        <th class="min-phone-l"> Service </th>
+                                        <th class="min-phone-l"> Option </th>
+                                        <th class="min-phone-l"> Addresse </th>
+                                        <th class="min-phone-l"> Ville </th>
+                                        <th class="none"></th>
+                                        <th class="none"></th>
+                                        <th class="none"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for user in users %}
+                                        {% if user.id != 1 %}
+                                            <tr>
+                                                <td> {{user.nom}} </td>
+                                                <td> {{user.prenom}} </td>
+                                                <td> {{user.email}} </td>
+                                                <td> {{user.telephone}} </td>
+                                                <td> {{user.niveau}} </td>
+                                                <td> {{user.specialite}} </td>
+                                                <td> {{user.secteur}} </td>
+                                                <td> {{user.service}} </td>
+                                                <td> {{user.options}} </td>
+                                                <td> {{user.address}} </td>
+                                                <td> {{user.ville}} </td>
+                                                <td>
+                                                    Atelier :  
+                                                    {% if (user.ateliercngot17!= null) %}
+                                                        {{user.ateliercngot17.titre}}
+                                                    {% else %}
+                                                        Aucun
+                                                    {% endif %}
+
+                                                </td>
+                                                <td>
+                                                    Masterclass :  
+                                                    {% if (user.masterclass!= null) %}
+                                                        {{user.masterclass.titre}}
+                                                    {% else %}
+                                                        Aucun
+                                                    {% endif %}
+                                                </td>
+
+                                                <td>
+                                                    {% if user.etat == 0 %}
+
+                                                        {% set apayer = 0 %}
+                                                        {% set devise = '' %}
+
+
+                                                        {% if (user.atme != null) and (user.ateliercngot17 != null) and (user.masterclass != null)  %}
+                                                            {% set apayer = apayer + 100 %}
+                                                        {% elseif (user.atme != null) and (user.ateliercngot17 != null) %}
+                                                            {% set apayer = apayer +  100 %}
+                                                        {% elseif (user.atme != null) or (user.ateliercngot17 != null) and (user.masterclass != null) %}
+                                                            {% set apayer = apayer +  50 %}
+                                                        {% elseif user.masterclass != null %}
+                                                            {% set apayer = apayer +  50 %}
+                                                        {% endif %}
+
+
+                                                        {% if user.options == 'Médecin étranger'%}
+                                                            {% set apayer = apayer +  150 %}
+                                                            {% set devise = ' €' %}
+                                                        {% elseif user.options == 'Médecin tunisien' %}
+                                                            {% set apayer = apayer +  150 %}
+                                                            {% set devise = ' Dt' %}
+                                                        {% elseif user.options == 'Résident, sage-femme ou technicien supérieur étrangers' %}
+                                                            {% set apayer = apayer +  70 %}
+                                                            {% set devise = ' €' %}
+                                                        {% elseif user.options == 'Résident, sage-femme ou technicien supérieur tunisien' %}
+                                                            {% set apayer = apayer +  70 %}
+                                                            {% set devise = ' Dt' %}
+                                                        {% endif %}
+
+                                                        <a type="button" href="#myModal"  onclick="calcultotal({{user.id}},{{apayer}} )" data-toggle="modal" class="button" >Voir le Récapitulatif</a>
+                                                    {% else %}
+                                                        <strong style="color: green;"> Payement effectué </strong>
+                                                    {% endif %}
+
+                                                    <br>
+                                                    <img id="qq" src="{{ qrcode_data_uri(user.salt)}}">
+
+                                                    <br>
+                                                    <hr/>
+                                                    {% for at in user.certifcn17 %}
+                                                        <div class="media-body">
+                                                            <h4 class="media-heading">&#34; {{at.titre}} &#34; <a href="{{ path('telecharger_certif_atelier',{'idUser' : user.id, 'idAtelier' : at.id}) }}"><strong>telecharger</strong></a></h4>
+                                                        </div
+                                                        <br>
+                                                        <hr/>
+                                                    {% endfor %}
+
+
+                                                    {% for ma in user.certifmaster %}
+                                                        <div class="media-body">
+                                                            <h4 class="media-heading">&#34; {{ma.titre}} &#34; <a href="{{ path('telecharger_certif_masterclass',{'idUser' : user.id, 'idMaster' : ma.id}) }}"><strong>telecharger</strong></a></h4>
+                                                        </div>
+                                                        <br>
+                                                        <hr/>
+                                                    {% endfor %}
+
+                                                </td>
+
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End: life time stats -->
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Begin: life time stats -->
+                <div class="portlet light portlet-fit portlet-datatable bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-green"></i>
+                            <span class="caption-subject font-green sbold uppercase">Liste des ateliers</span>
+                        </div>
+                        <div class="actions">
+                            <div class="btn-group">
+                                <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+                                    <span class="hidden-xs"> Options </span>
+                                </a>
+                                <ul class="dropdown-menu pull-right" id="sample_3_tools">
+                                    <li>
+                                        <a href="javascript:;" data-action="0" class="tool-action">
+                                            <i class="icon-printer"></i> Imprimer</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="1" class="tool-action">
+                                            <i class="icon-check"></i> Copier</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="2" class="tool-action">
+                                            <i class="icon-doc"></i> PDF</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="3" class="tool-action">
+                                            <i class="icon-paper-clip"></i> Excel</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="4" class="tool-action">
+                                            <i class="icon-cloud-upload"></i> CSV</a>
+                                    </li>
+                                    <li class="divider"> </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="5" class="tool-action">
+                                            <i class="icon-refresh"></i> Rafraîchir</a>
+                                    </li>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-container">
+                            <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                <thead>
+                                    <tr>
+                                        <th class="all"> Titre </th>
+                                        <th class="min-phone-l"> Catégorie </th>
+                                        <th class="none"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for mast in masters %}
+
+                                        <tr>
+                                            <td> {{mast.titre}} </td>
+                                            <td> Masterclass </td>
+                                            <td>
+                                                <a href="{{ path('atelier_ticket',{'code' : mast.code,'titre' : mast.titre}) }}" class="buttonDownload">Download</a>
+                                            </td>
+
+                                        </tr>
+
+                                    {% endfor %}
+
+
+
+
+
+                                    {% for c17 in cn17s %}
+
+                                        <tr>
+                                            <td> {{c17.titre}} </td>
+                                            <td> CNGOT 17/11/2016 </td>
+                                            <td>
+                                                <a href="{{ path('atelier_ticket',{'code' : c17.code,'titre' : c17.titre}) }}" class="buttonDownload">Download</a>
+                                            </td>
+
+                                        </tr>
+
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End: life time stats -->
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- END PAGE BASE CONTENT -->
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title">Récapitulatif de Paiement</h3>
+                </div>
+                <div class="modal-body">
+                    <h5 class="text-center"></h5>
+                    <div class="form-group">
+                        <div class="clearfix"  ><center><h4 id="blasettotal" >Total à Payer :</h4></center>  </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a  class="btn btn-warning " data-dismiss="modal">Annuler</a>
+                    <a id="pay" href="{{ path('accepter_abstract',{'id' : 'user_id'}) }}" class="btn btn-primary" >Paiement effectué</a>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <script>
+        function calcultotal(id, apayer) {
+            var link = document.getElementById("pay");
+            var url = '{{ path('payement_effectue',{'id' : 'user_id'}) }}';
+            url = url.replace("user_id", id);
+            link.setAttribute("href", url);
+
+            document.getElementById("blasettotal").innerHTML = 'Total à Payer :  ' + apayer;
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+{% endblock %}
